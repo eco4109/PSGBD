@@ -90,6 +90,11 @@ class ControladorInicial extends CI_Controller { //Controlador principal que car
 
 	}
 
+
+	public function fGeneraVenta(){
+		$this->load->view('VAgregaVenta');
+	}
+
 	public function fGenerar(){
 		//aqui ira la funcion de generar
 		$this->input->post('var');

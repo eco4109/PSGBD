@@ -34,6 +34,29 @@
    		 	</td>    		
 	</form>
 
+
+	<form method= "post" action="fGeneraVenta">
+		<table align="center">
+		<tr>
+  	  		<td align="center" style="padding: 10px"> 
+   		 		<input type="submit" value="Hacer una Venta" class="btn btn-success" style="width: 200px;"></input>
+   		 	</td>    		
+	</form>
+
+
+	<form method= "post" action="fGenerarCompra">
+		<table align="center">
+		<tr>
+  	  		<td align="center" style="padding: 10px"> 
+   		 		<input type="submit" value="Hacer una Compra" class="btn btn-success" style="width: 200px;"></input>
+   		 	</td>    		
+	</form>
+
+
+
+
+
+
 	<form method= "post" action="fGenerar">
 		<table align="center">
 		<tr>
