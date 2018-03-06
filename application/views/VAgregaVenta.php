@@ -19,84 +19,60 @@
 		color: white; 
 	}
 </style>     </head> <body>
-<form method= "post" action="controlador_login/agregarT">         <h1
-align="center">Hacer una Venta.</h1>      <table align="center">
-<tr>                 <td > <label for="n_empleado" >Número empleado:
-</label></td>                 <td style="padding:10px;"><input type="number"
-id="n_empleado" name="n_empleado" type="text" placeholder="Numero de Empleado"
-class="form-control" required=""></td>
-	              
-	 		  </tr>
-	          <tr>
-	              <td><label for="nombre">Nombre:</label></td>
-	              <td  style="padding:10px;"><input type="text" name="nombre" id="nombre" class="form-control" required=""></td>
-	              <td><label for="a_paterno">Apellido Paterno:</label></td>
-	              <td style="padding:10px;" ><input type="text" name="a_paterno" id="a_paterno" class="form-control" required=""></td>
-	              <td><label for="a_materno">Apellido Materno:</label></td>
-	            <td style="padding:10px;"><input type="text" name="a_materno" id="a_materno" class="form-control" required=""></td>
+<form method= "post" action="fagregaVenta">         
+	<h1 align="center">Hacer una Venta.</h1>      
+	<table align="center">
+		<tr>
+			<td style="padding:10px;"><input type="text"  class="form-control"  value="COMPUTOL"  readonly ></td>
+			<td>
+				<label>Id de Venta: </label>
+			</td>
+			<td style="padding: 10px;">
+				<input type="text" class="form-control" name="idVenta" value="<?php echo $id ;?>" readonly>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="nombre">Folio de Factura:</label></td>
+	        <td  style="padding:10px;"><input type="text" name="folioF"  class="form-control" required=""></td>
+	        <td><label for="t_empleado">Vendedor: </label></td>
+	        <td style="padding:10px;"> 
+
+	        <select name="vendedor" class="form-control">Tipo de Empleado:
+	        <option value="--" class="form-control">---</option>
+    		<option value="1" class="form-control">JUAN PEREZ </option>
+    	    <option value="2" class="form-control">CARMEN GARCIA</option>
+            </select>
+        </td>
+   
 	              
 	          </tr>
 
 	          <tr>
-	          	<td><label for="direccion">Direccion: </label></td>
+	          	<td><label for="direccion">Cliente: </label></td>
 
-	            <td style="padding:10px;"><input type="text" name="direccion" id="direccion" class="form-control" required=""></td>
-
-	            <td><label for="telefono">Telefono: </label></td>
-
-	            <td style="padding:10px;"><input type="text" name="telefono" id="telefono" maxlength="10" class="form-control" required=""></td>
+	            <td style="padding:10px;"><input type="text" name="cliente" class="form-control" required=""></td>
 	            
 	          </tr>
 
 	          <tr></tr>
 
 	          <tr>
-	            <td><label for="email">Correo electronico: </label></td>
+	            <td><label for="email">Fecha: </label></td>
 
-	            <td style="padding:10px;"><input type="email" name="email" id="email" class="form-control" required=""></td>
+	            <td style="padding:10px;"><input type="date" name="fecha" class="form-control" required=""></td>
 	            
 	          </tr>
 
-	          <tr><td><label for="t_empleado">Tipo de empleado</label></td>
-	          	<td style="padding:10px;"> 
-
-	          <select name="t_empleado" class="form-control">Tipo de Empleado
-    		  <option value="trabajador" class="form-control">Trabajador</option>
-    	      <option value="supervisor" class="form-control">Supervisor</option>
-              </select>
-          </td>
-              <br><br>
-              </tr>
-	            <td><label for="fecha">Fecha de ingreso: </label></td>
-
-	            <td style="padding:10px;"><input type="date" name="fecha" id="fecha" class="form-control" required=""></td>
-
-	            <td><label for="Sindicalizado">Sindicalizado?si=1 no=0: </label></td>
-
-	            <td style="padding:10px;"><input type="number" name="Sindicalizado" id="Sindicalizado" min=0 max = 1 class="form-control" required=""></td>
-	          </tr>
-	          
-	          <tr>
-	            <td><label for="cve_jefe">Clave de su jefe: </label></td>
-	            <td style="padding:10px;"><input type="number" name="cve_jefe" id="cve_jefe" min="0" class="form-control" required=""></td>
-	          </tr>
-
-	          <tr>
-	          
-
 	              <td align="center"> <input type="submit" value="Enviar" class="btn btn-success" style="width: 100px;" required=""></input></td>
-	              <td align="center" style="padding:10px;"> <input type="reset" value="Limpiar" class="btn btn-success" style="width: 100px;"></input></td>       
+	              <td align="center" style="padding:10px;"> <input type="reset" value="Limpiar" class="btn btn-primary" style="width: 100px;"></input></td>       
 	      </form>
 
-	      <form method="post" action="controlador_login/regresar">
+	      <form method="post" action="pPrincipal">
 	        	<td>
-	            	<input type="submit" value="Regresar" class="btn btn-success" style="width:100px;">
+	            	<input type="submit" value="Regresar" class=" btn btn-warning" style="width:100px;">
 	            </td>
 	        </form>
-	      <form method= "post" action="controlador_login/logout">
-	          	
-	              <td> <input type="submit" value="Salir" class="btn btn-success" style="width: 100px;"></td>
-	       </form>
+
 </tr>
 </table>
 

@@ -10,7 +10,7 @@ class ControladorInicial extends CI_Controller { //Controlador principal que car
 
 	public function inicio() //Función que carga la Vista inicial
 	{
-		$this->load->view('VistaInicio');
+		$this->load->view('VistaInicio1');
 	}
 
 	public function pPrincipal(){ //Funcion que carga el menpu principal
@@ -91,13 +91,43 @@ class ControladorInicial extends CI_Controller { //Controlador principal que car
 	}
 
 
-	public function fGeneraVenta(){
-		$this->load->view('VAgregaVenta');
+	public function fGeneraVenta(){ //Funcion para cargar la vista de agregar una venta
+		//Obtener el ultimo id de venta para agregarle +1
+		$id_lastVenta = $this->ModelosP->ObtenIdVenta();
+		$id['id'] = $id_lastVenta['MAX(id_venta)'] +1;
+
+		$this->load->view('VAgregaVenta', $id);
 	}
 
 	public function fGenerarCompra(){
 		//aqui ira la funcion de generar
 		$this->input->post('var');
+
+	}
+
+	public function fAgregaVenta(){ //funcion paa agregar una venta
+		//Se obtienen todos los valores escritos en el formulario
+		$folioF	 = $this->input->post('folioF');
+		$idVendedor = $this->input->post('vendedor');
+		$cliente = $this->input->post('cliente');
+		$cliente = strtoupper($cliente);
+		$fecha = $this->input->post('fecha');
+		$idVenta = $this->input->post('idVenta');
+
+		//OBTENER EL ID del cliente
+		$idClient = $this->ModelosP->ObtenIdCliente($cliente);
+		$idClient = $idClient["id_cliente"];
+
+		if($idClient == NULL){
+			//No se ingreso un cliente existente
+
+		}else{ //Agregar la Venta a la tabla de venta
+			$query = $this->ModelosP->AgregarVenta($idVenta, $fecha, $folioF, $idClient, $idVendedor);
+			if($query == TRUE){
+				$this->load->view('VAddVentaDone');
+			}
+		}
+
 
 	}
 }
