@@ -32,6 +32,13 @@
 
 		}
 
+
+		public function AgregarVenta($idVenta, $fecha, $folioF, $idClient, $idVendedor){
+			$query = "INSERT INTO venta (id_venta, fech_venta, folio_factura, id_cliente, id_vendedor) VALUES ('".$idVenta."', '".$fecha."', '".$folioF."', '".$idClient."', '".$idVendedor."')";
+			$resultado=$this->db->query($query);
+		    return $resultado;
+		}
+
 		public function ObtenIdLastProveedor(){ //Funcion para obtener el id del ultimo proveedor insertado
 			$query = "SELECT MAX(id_proveedor) FROM proveedor";
 			$resultado = $this->db->query($query);
@@ -43,5 +50,27 @@
 			$resultado=$this->db->query($query);
 		    return $resultado;
 		}
+
+		 public function ObtenIdCliente($cliente){
+		 	$query = "SELECT id_cliente FROM cliente WHERE nombre_comprador = '".$cliente."'";
+		 	$resultado = $this->db->query($query);
+		 	return $resultado->row_array();
+		}
+
+		public function ObtenIdVenta(){ //Funcion para obtener el ultimo id de las ventas
+			$query = "SELECT MAX(id_venta) FROM venta";
+			$resultado = $this->db->query($query);
+			return $resultado->row_array();
+		}
+
+		public function ChecaClientes(){ //Funcion para checar cuantos clientes hay en la base de datos
+			$query = "SELECT nombre_comprador FROM cliente";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+		}
+
+		
+
+
 	}
 ?>

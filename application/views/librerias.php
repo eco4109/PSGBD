@@ -26,7 +26,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
 <style type="text/css">
 	body{
-		background-color: #848484;
 		background-image: url(https://images.unsplash.com/photo-1433785124354-92116416b870?q=80&fm=jpg&s=38f06298f26c11c59024eabf3b0be3bb);
 		background-position: center center;
 		background-repeat: no-repeat;
@@ -35,4 +34,20 @@
 	}form{
 		color: white; 
 	}
+
+	.btn-salir{
+		-webkit-border-radius: 60;
+		-moz-border-radius: 60;
+  		border-radius: 40px;
+  		-webkit-box-shadow: 9px 7px 14px #666666;
+  		-moz-box-shadow: 9px 7px 14px #666666;
+  		box-shadow: 9px 7px 14px #666666;
+  		font-family: Courier New;
+  		font-size: 21px;
+  		background: #e74c3c;
+  		padding: 4px 5px 4px 5px;
+  		text-decoration: none;
+	}
+
+
 </style>
