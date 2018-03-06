@@ -35,19 +35,5 @@
 		color: white; 
 	}
 
-	.btn-salir{
-		-webkit-border-radius: 60;
-		-moz-border-radius: 60;
-  		border-radius: 40px;
-  		-webkit-box-shadow: 9px 7px 14px #666666;
-  		-moz-box-shadow: 9px 7px 14px #666666;
-  		box-shadow: 9px 7px 14px #666666;
-  		font-family: Courier New;
-  		font-size: 21px;
-  		background: #e74c3c;
-  		padding: 4px 5px 4px 5px;
-  		text-decoration: none;
-	}
-
 
 </style>

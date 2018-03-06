@@ -68,8 +68,8 @@
 	<form method= "post" action="inicio">
 		<table align="center">
 		<tr>
-  	  		<td align="center" style="padding: 40px"> 
-   		 		<input  type="submit" value="Salir" class="btn-salir" style="width: 200px;"></input>
+  	  		<td align="center" style="padding: 30px"> 
+   		 		<input   type="submit" value="Salir" class="btn btn-danger" style="width: 200px;"></input>
    		 	</td>    		
 	</form>
 </tr>
