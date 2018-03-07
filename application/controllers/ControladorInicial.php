@@ -1,7 +1,9 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class ControladorInicial extends CI_Controller { //Controlador principal que carga el inicio de la aplicación
+
+class ControladorInicial extends CI_controller{ //Controlador principal que carga el inicio de la aplicación
 
 	public function __construct(){
 		parent:: __construct();
@@ -20,7 +22,13 @@ class ControladorInicial extends CI_Controller { //Controlador principal que car
 	public function CargaVAgregar(){ //Funcion que carga la vista de Agregar Algo al catalogo
 		$this->load->view('VistaAgregarCat');
 	}
+	public function fGenerarCompra(){
+		$this->load->view('VAddPurchase');
 
+	}
+	public function confirmacion(){
+		$this->load->view('confirmacionCliente');
+	}
 	public function fdecideVAgregar(){ //Funcion para decidir la vista de agregar que debe de desplegar (Cliente, articulo, proveedor)
 		$opcion=$this->input->post('opcion'); //Se obtiene la opcion elegida
 
@@ -99,12 +107,7 @@ class ControladorInicial extends CI_Controller { //Controlador principal que car
 		$this->load->view('VAgregaVenta', $id);
 	}
 
-	public function fGenerarCompra(){
-		//aqui ira la funcion de generar
-		$this->input->post('var');
-
-	}
-
+	
 	public function fAgregaVenta(){ //funcion paa agregar una venta
 		//Se obtienen todos los valores escritos en el formulario
 		$folioF	 = $this->input->post('folioF');
@@ -129,5 +132,20 @@ class ControladorInicial extends CI_Controller { //Controlador principal que car
 		}
 
 
+	}
+	public function confirmacion2(){
+		$opcion = $this->input->post('opcion');
+		if ($opcion =='Si'){
+			$this->load->view('VAgregarCliente');
+		}else{
+			$this->load->view('VAddPurchase');
+		}
+
+	}
+	public function llamaModelo(){
+		$opcion=$this->post('serachProvider');
+		$resultado = $this->load->model(buscaProveedores($opcion));
+		$data['resumen']=$resultado;
+		$this->load->view('VAddPurchase',$data);
 	}
 }

@@ -68,8 +68,12 @@
 			$resultado = $this->db->query($query);
 			return $resultado->result_array();
 		}
+		public function buscaProveedores($proveedor){
+			$query = "select * from proveedor where nombre_proveedor like'".$proveedor."'";
+			$resultado=$this->db->query($query);
+			return $resultado->result_array();
 
-		
+		}	
 
 
 	}
