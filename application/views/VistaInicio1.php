@@ -6,22 +6,7 @@
 ?>
 <title>Inicio</title>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
 <style type="text/css">
-body,html{
-  margin:0px  ;padding:40px  ;height:100%;
-}
-body{
-  background-size:cover;
-  font-family: "Courier New", Courier, monospace;
-  display:flex;
-  flex-direction:column;
-  align-items:center; 
-}
-svg{
-  font-weight:bold;max-width:500px;height:auto;
-}
-
 .btn {
   -webkit-border-radius: 60;
   -moz-border-radius: 60;

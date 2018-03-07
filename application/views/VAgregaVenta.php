@@ -5,9 +5,12 @@
  $this->load->view('librerias');
  ?>
 	<title >Agregar una Venta</title>
+<<<<<<< HEAD
 	<link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Tangerine">
 <style type="text/css">
+=======
+>>>>>>> 48838d19a8642099a222ff677f9173b17fefcc23
 	
 </style>     </head> <body>
 <form method= "post" action="fagregaVenta">         
