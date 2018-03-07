@@ -8,19 +8,10 @@
 	<link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Tangerine">
 <style type="text/css">
-	body{
-		
-		background-image: url(https://images.unsplash.com/photo-1433785124354-92116416b870?q=80&fm=jpg&s=38f06298f26c11c59024eabf3b0be3bb);
-		background-position: center center;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-		background-size: cover;
-	}form{
-		color: white; 
-	}
+	
 </style>     </head> <body>
 <form method= "post" action="fagregaVenta">         
-	<h1 align="center">Hacer una Venta.</h1>      
+	<h1 align="center">Información de la venta.</h1>      
 	<table align="center">
 		<tr>
 			<td style="padding:10px;"><input type="text"  class="form-control"  value="COMPUTOL"  readonly ></td>
@@ -28,7 +19,9 @@
 				<label>Id de Venta: </label>
 			</td>
 			<td style="padding: 10px;">
-				<input type="text" class="form-control" name="idVenta" value="<?php echo $id ;?>" readonly>
+
+				<input type="text" class="form-control" name="idVenta" value="<?php echo $id ;?>">
+
 			</td>
 		</tr>
 		<tr>

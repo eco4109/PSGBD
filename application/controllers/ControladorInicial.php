@@ -97,6 +97,7 @@ class ControladorInicial extends CI_Controller { //Controlador principal que car
 		$id['id'] = $id_lastVenta['MAX(id_venta)'] +1;
 
 		$this->load->view('VAgregaVenta', $id);
+
 	}
 
 	public function fGenerarCompra(){
@@ -112,11 +113,20 @@ class ControladorInicial extends CI_Controller { //Controlador principal que car
 		$cliente = $this->input->post('cliente');
 		$cliente = strtoupper($cliente);
 		$fecha = $this->input->post('fecha');
-		$idVenta = $this->input->post('idVenta');
+		$idVenta = $this->input->post('idVenta'); 
+
+
 
 		//OBTENER EL ID del cliente
 		$idClient = $this->ModelosP->ObtenIdCliente($cliente);
 		$idClient = $idClient["id_cliente"];
+
+		//Guardamos las variables que se utilizaran en la funcion "fTerminarVenta" para poder sacarlas de aqui
+		$_SESSION['fecha_venta'] = $fecha;
+		$_SESSION['folio_factura'] = $folioF;
+		$_SESSION['id_cliente'] = $idClient;
+		$_SESSION['id_vendedor'] = $idVendedor;
+
 
 		if($idClient == NULL){
 			//No se ingreso un cliente existente
@@ -124,10 +134,46 @@ class ControladorInicial extends CI_Controller { //Controlador principal que car
 		}else{ //Agregar la Venta a la tabla de venta
 			$query = $this->ModelosP->AgregarVenta($idVenta, $fecha, $folioF, $idClient, $idVendedor);
 			if($query == TRUE){
-				$this->load->view('VAddVentaDone');
+				//Como ya se agrego la venta ahora hay que agregar los articulos que se vendieron xD
+				$id['$id'] = $idVenta;
+				$this->load->view('VAddVentaPro', $idVenta);
+				$_SESSION['count'] = $idVenta+1;
+
+			}else{
+				//No se agrego la venta, asi que mandar vista con error.
 			}
+		}
+	}
+
+
+		public function fTerminarVenta(){ //Funcon para terminar la venta
+			//Se obtiene el id de la venta
+			$idVenta = $this->input->post('idVenta');
+			//En un ARREGLO se guardan los id de los productos vendidos
+			$idArts = $this->input->post('idArts');
+			//En otro ARREGLO se guardan las cantidades de los productos
+			$cantArts = $this->input->post('cantArts');
+
+			//Obtener las variables de la funcion fAgregaVenta
+			session_start();
+			var_dump($_SESSION['fecha_venta']);	
+			die();
+			$fecha = $_SESSION['fecha_venta'];
+			$folioF = $_SESSION['folio_factura'];
+			$idClient = $_SESSION['id_cliente'];
+			$idVendedor= $_SESSION['id_vendedor'];
+
+			var_dump($fecha);
+			var_dump($idVenta);
+			echo '<br/>';
+			var_dump($idArts);
+			echo '<br/>';
+			var_dump($cantArts);
+			die();
+
 		}
 
 
-	}
+
+
 }
