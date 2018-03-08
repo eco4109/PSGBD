@@ -4,6 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 class ControladorInicial extends CI_controller{ //Controlador principal que carga el inicio de la aplicación
+	$fecha=NULL;
+	$folioF=NULL;
+	$idClient = NULL;
+	$idVendedor = NULL;
 
 	public function __construct(){
 		parent:: __construct();
@@ -129,8 +133,6 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$_SESSION['folio_factura'] = $folioF;
 		$_SESSION['id_cliente'] = $idClient;
 		$_SESSION['id_vendedor'] = $idVendedor;
-
-
 		if($idClient == NULL){
 			//No se ingreso un cliente existente
 
@@ -149,7 +151,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 	}
 
 
-		public function fTerminarVenta(){ //Funcon para terminar la venta
+		public function fTerminarVenta($fecha, $folioF, $idClient, $idVendedor){ //Funcion para terminar la venta
 			//Se obtiene el id de la venta
 			$idVenta = $this->input->post('idVenta');
 			//En un ARREGLO se guardan los id de los productos vendidos
@@ -176,12 +178,6 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 
 		}
 
-
-
-
-<<<<<<< HEAD
-=======
-	}
 	public function confirmacion2(){
 		$opcion = $this->input->post('opcion');
 		if ($opcion =='Si'){
@@ -197,5 +193,5 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$data['resumen']=$resultado;
 		$this->load->view('VAddPurchase',$data);
 	}
->>>>>>> 48838d19a8642099a222ff677f9173b17fefcc23
+
 }
