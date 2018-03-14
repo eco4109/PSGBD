@@ -1,7 +1,7 @@
 <?php
 
 	class ModelosP extends CI_Model{
-		
+
 		public function __construct(){
 			$this->load->database();
 			ini_set("memory_limit","512M");
@@ -72,8 +72,24 @@
 			$query = "select * from proveedor where nombre_proveedor like'".$proveedor."'";
 			$resultado=$this->db->query($query);
 			return $resultado->result_array();
+		}
+		public function ObtenPrecioArt($idArts){//Funcion para obtener los precios de venta de los articulos
+			$precioArts = array();
+			for ($i=0; $i < count($idArts); $i++) {
+				$query = "SELECT precio_venta FROM articulo WHERE id_articulo = ".$idArts[$i];
+				$resultado = $this->db->query($query);
+				$precioArts[$i] = $resultado->row_array();
+			}
+			return $precioArts;
+		}
 
-		}	
+		public function AgregaVenta_Articulo($idVenta, $idArts, $cantArts, $precioArts){
+			for ($i=0; $i < count($idArts); $i++) {
+				$query = "INSERT INTO venta_articulo (id_venta, id_articulo, cant_ventas, precio_ventas) VALUES (".$idVenta.", ".$idArts[$i].", ".$cantArts[$i].", ".$precioArts[$i]['precio_venta'].")";
+				$resultado = $this->db->query($query);
+			}
+			return $resultado;
+		}
 
 
 	}

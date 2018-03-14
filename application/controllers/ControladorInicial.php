@@ -4,15 +4,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 class ControladorInicial extends CI_controller{ //Controlador principal que carga el inicio de la aplicación
-	$fecha=NULL;
-	$folioF=NULL;
-	$idClient = NULL;
-	$idVendedor = NULL;
+
+
 
 	public function __construct(){
 		parent:: __construct();
 		$this->load->model('ModelosP');
 	}
+
+	protected $F;
 
 	public function inicio() //Función que carga la Vista inicial
 	{
@@ -20,7 +20,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 	}
 
 	public function pPrincipal(){ //Funcion que carga el menpu principal
-		$this->load->view('VistaPrincipal');	
+		$this->load->view('VistaPrincipal');
 	}
 
 	public function CargaVAgregar(){ //Funcion que carga la vista de Agregar Algo al catalogo
@@ -36,7 +36,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 	public function fdecideVAgregar(){ //Funcion para decidir la vista de agregar que debe de desplegar (Cliente, articulo, proveedor)
 		$opcion=$this->input->post('opcion'); //Se obtiene la opcion elegida
 
-		if($opcion == "Cliente"){ 
+		if($opcion == "Cliente"){
 			//Para agregar un Cliente hay que obtener el id del ultimo cliente, ya que son secuenciales.
 			$id_lastClient = $this->ModelosP->ObtenIdLastClient(); //Se obtiene el id del ultimo cliente.
 			//El id del ultimo cliente se guarda en: $id_lastClient["MAX(id_cliente)"]
@@ -47,7 +47,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		}elseif ($opcion == "Articulo") {
 			//Cargar la vista para agregar un Articulo
 			$this->load->view('VAgregarArticulo');
-			
+
 		}elseif ($opcion == "Proveedor") {
 			//Para ingresar un proveedor hay que obtener el id del ultimo, ya que son secuencials
 			$id_lastProveedor = $this->ModelosP->ObtenIdLastProveedor();
@@ -56,7 +56,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 			////Cargar la vista para agregar un Proveedor
 			$this->load->view('VAgregarProveedor', $id);
 		}else{
-			
+
 			$this->load->view('VistaAgregarCat');
 		}
 	}
@@ -112,32 +112,26 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 
 	}
 
-	
+
 	public function fAgregaVenta(){ //funcion paa agregar una venta
 		//Se obtienen todos los valores escritos en el formulario
 		$folioF	 = $this->input->post('folioF');
 		$idVendedor = $this->input->post('vendedor');
 		$cliente = $this->input->post('cliente');
 		$cliente = strtoupper($cliente);
-		$fecha = $this->input->post('fecha');
-		$idVenta = $this->input->post('idVenta'); 
-
+		$this->F =  $this->input->post('fecha');
+		$idVenta = $this->input->post('idVenta');
 
 
 		//OBTENER EL ID del cliente
 		$idClient = $this->ModelosP->ObtenIdCliente($cliente);
 		$idClient = $idClient["id_cliente"];
 
-		//Guardamos las variables que se utilizaran en la funcion "fTerminarVenta" para poder sacarlas de aqui
-		$_SESSION['fecha_venta'] = $fecha;
-		$_SESSION['folio_factura'] = $folioF;
-		$_SESSION['id_cliente'] = $idClient;
-		$_SESSION['id_vendedor'] = $idVendedor;
 		if($idClient == NULL){
 			//No se ingreso un cliente existente
 
 		}else{ //Agregar la Venta a la tabla de venta
-			$query = $this->ModelosP->AgregarVenta($idVenta, $fecha, $folioF, $idClient, $idVendedor);
+			$query = $this->ModelosP->AgregarVenta($idVenta, $this->F, $folioF, $idClient, $idVendedor);
 			if($query == TRUE){
 				//Como ya se agrego la venta ahora hay que agregar los articulos que se vendieron xD
 				$id['$id'] = $idVenta;
@@ -151,32 +145,27 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 	}
 
 
-		public function fTerminarVenta($fecha, $folioF, $idClient, $idVendedor){ //Funcion para terminar la venta
-			//Se obtiene el id de la venta
-			$idVenta = $this->input->post('idVenta');
+	public function fTerminarVenta(){ //Funcion para terminar la venta
+		//Se obtiene el id de la venta
+		$idVenta = $this->input->post('idVenta');
 			//En un ARREGLO se guardan los id de los productos vendidos
-			$idArts = $this->input->post('idArts');
+		$idArts = $this->input->post('idArts');
 			//En otro ARREGLO se guardan las cantidades de los productos
-			$cantArts = $this->input->post('cantArts');
+		$cantArts = $this->input->post('cantArts');
+		//Obtenerun vector del precio de venta de cada articulo
+		$precioArts= $this->ModelosP->ObtenPrecioArt($idArts);
 
-			//Obtener las variables de la funcion fAgregaVenta
-			session_start();
-			var_dump($_SESSION['fecha_venta']);	
-			die();
-			$fecha = $_SESSION['fecha_venta'];
-			$folioF = $_SESSION['folio_factura'];
-			$idClient = $_SESSION['id_cliente'];
-			$idVendedor= $_SESSION['id_vendedor'];
 
-			var_dump($fecha);
-			var_dump($idVenta);
-			echo '<br/>';
-			var_dump($idArts);
-			echo '<br/>';
-			var_dump($cantArts);
-			die();
+		//Agregar la informacion de los articulos comprados a la tabla venta_articulo
+		$resultado = $this->ModelosP->AgregaVenta_Articulo($idVenta, $idArts, $cantArts, $precioArts);
+		if(isset($resultado)){
+			$this->load->view('VAddSaleDone');
+		}else{
+			$this->load->view('VAddSaleFail');
+		}
 
 		}
+
 
 	public function confirmacion2(){
 		$opcion = $this->input->post('opcion');
@@ -192,6 +181,11 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$resultado = $this->load->model(buscaProveedores($opcion));
 		$data['resumen']=$resultado;
 		$this->load->view('VAddPurchase',$data);
+	}
+
+	public function allClients(){
+		echo "A HUEVO!!!!";
+		die();
 	}
 
 }
