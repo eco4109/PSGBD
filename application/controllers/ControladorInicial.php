@@ -139,7 +139,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 				$_SESSION['count'] = $idVenta+1;
 
 			}else{
-				//No se agrego la venta, asi que mandar vista con error.
+				echo ":(";
 			}
 		}
 	}

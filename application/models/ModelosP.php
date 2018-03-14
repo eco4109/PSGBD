@@ -4,7 +4,7 @@
 
 		public function __construct(){
 			$this->load->database();
-			ini_set("memory_limit","512M");
+			
 		}
 
 		public function ObtenIdLastClient(){ //Funcion para obtener el id del ultimo cliente insertado, para poder insertar otro con ese id +1
