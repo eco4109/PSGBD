@@ -5,14 +5,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ControladorInicial extends CI_controller{ //Controlador principal que carga el inicio de la aplicación
 
-
+	protected $F;
 
 	public function __construct(){
 		parent:: __construct();
 		$this->load->model('ModelosP');
 	}
-
-	protected $F;
 
 	public function inicio() //Función que carga la Vista inicial
 	{
@@ -107,8 +105,12 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		//Obtener el ultimo id de venta para agregarle +1
 		$id_lastVenta = $this->ModelosP->ObtenIdVenta();
 		$id['id'] = $id_lastVenta['MAX(id_venta)'] +1;
+		//Obtener a los clientes de la base de datos para meterlos en un COMBOX en la vista
+		$this->clients = $this->ModelosP->ObtenClientes();
 
-		$this->load->view('VAgregaVenta', $id);
+		
+
+		$this->load->view('VAgregaVenta', $id, $this->clients);
 
 	}
 
@@ -119,7 +121,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$idVendedor = $this->input->post('vendedor');
 		$cliente = $this->input->post('cliente');
 		$cliente = strtoupper($cliente);
-		$this->F =  $this->input->post('fecha');
+		$F =  $this->input->post('fecha');
 		$idVenta = $this->input->post('idVenta');
 
 
@@ -131,7 +133,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 			//No se ingreso un cliente existente
 
 		}else{ //Agregar la Venta a la tabla de venta
-			$query = $this->ModelosP->AgregarVenta($idVenta, $this->F, $folioF, $idClient, $idVendedor);
+			$query = $this->ModelosP->AgregarVenta($idVenta, $F, $folioF, $idClient, $idVendedor);
 			if($query == TRUE){
 				//Como ya se agrego la venta ahora hay que agregar los articulos que se vendieron xD
 				$id['$id'] = $idVenta;
@@ -181,11 +183,6 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$resultado = $this->load->model(buscaProveedores($opcion));
 		$data['resumen']=$resultado;
 		$this->load->view('VAddPurchase',$data);
-	}
-
-	public function allClients(){
-		echo "A HUEVO!!!!";
-		die();
 	}
 
 }

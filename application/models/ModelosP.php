@@ -91,6 +91,12 @@
 			return $resultado;
 		}
 
+		public function ObtenClientes(){ //Funcion para obtener los clientes de la base de datos
+			$query = "SELECT nombre_comprador FROM cliente";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+		}
+
 
 	}
 ?>
