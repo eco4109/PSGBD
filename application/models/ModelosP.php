@@ -26,7 +26,7 @@
 		}
 
 		public function InsertaArticulo($id, $descrip, $precioV){ //Funcion para Agregar un Articulo a la base
-			$query = "INSERT INTO articulo (id_articulo, des_articulo, precio_venta) VALUES ('".$id."','".$descrip."', '".$precioV."')";
+			$query = "INSERT INTO articulo (id_articulo, des_articulo, precio_venta, existencias) VALUES ('".$id."','".$descrip."', '".$precioV."', '0')";
 			$resultado = $this->db->query($query);
 			return $resultado;
 
@@ -93,6 +93,12 @@
 
 		public function ObtenClientes(){ //Funcion para obtener los clientes de la base de datos
 			$query = "SELECT nombre_comprador FROM cliente";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+		}
+
+		public function ObtenArtics(){ //Funcion para obtener los articulos de la base de datos
+			$query = "SELECT des_articulo FROM articulo";
 			$resultado = $this->db->query($query);
 			return $resultado->result_array();
 		}

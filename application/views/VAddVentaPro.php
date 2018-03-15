@@ -55,12 +55,11 @@ if (iCnt <= 19) {
 
 iCnt = iCnt + 1;
 
-// Añadir caja de texto.
-//$(container).append('<input type=text class="input" id=tb' + iCnt + ' ' +
-//'value="Elemento de Texto ' + iCnt + '" />');
+
+$(container).append('<tr> <td> <label id=tb'+iCnt+' style="margin-left: 150px;" >Id del producto: '+iCnt+' </label><select  class="form-control" name="idArts[]"><option value="--" class="form-control">---</option><?php for ($i=0; $i < count($this->artics); $i++) {?><option> <?php echo $this->artics[$i]['des_articulo'] ;?></option><?php } ?></select></td> <td align="center" style="padding:10px;"> <label id=tb'+iCnt+' style="margin-left: 250px;" >Cantidad: </label> <input type="number"  style="margin-left: 250px;" min=1 class="form-control" name="cantArts[]"> </td> </tr>');
 
 
-$(container).append('<tr> <td> <label id=tb'+iCnt+' style="margin-left: 150px;" >Id del producto:'+iCnt+' </label> <input style="margin-left: 150px;" type="text" style="width:180px;" class="form-control" name="idArts[]"> </td> <td align="center" style="padding:10px;"> <label id=tb'+iCnt+' style="margin-left: 250px;" >Cantidad: </label> <input type="number"  style="margin-left: 250px;" min=1 class="form-control" name="cantArts[]"> </td> </tr>');
+//$(container).append('<tr> <td> <label id=tb'+iCnt+' style="margin-left: 150px;" >Id del producto: '+iCnt+' </label> <input style="margin-left: 150px;" type="text" style="width:180px;" class="form-control" name="idArts[]"> </td> <td align="center" style="padding:10px;"> <label id=tb'+iCnt+' style="margin-left: 250px;" >Cantidad: </label> <input type="number"  style="margin-left: 250px;" min=1 class="form-control" name="cantArts[]"> </td> </tr>');
 
 
 

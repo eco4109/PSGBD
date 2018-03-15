@@ -108,8 +108,6 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		//Obtener a los clientes de la base de datos para meterlos en un COMBOX en la vista
 		$this->clients = $this->ModelosP->ObtenClientes();
 
-		
-
 		$this->load->view('VAgregaVenta', $id, $this->clients);
 
 	}
@@ -137,7 +135,9 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 			if($query == TRUE){
 				//Como ya se agrego la venta ahora hay que agregar los articulos que se vendieron xD
 				$id['$id'] = $idVenta;
-				$this->load->view('VAddVentaPro', $idVenta);
+				//Obtener a los articulos de la base de datos para meterlos en un COMBOX en la vista
+				$this->artics = $this->ModelosP->ObtenArtics();
+				$this->load->view('VAddVentaPro', $idVenta, $this->artics);
 				$_SESSION['count'] = $idVenta+1;
 
 			}else{
@@ -167,7 +167,6 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		}
 
 		}
-
 
 	public function confirmacion2(){
 		$opcion = $this->input->post('opcion');

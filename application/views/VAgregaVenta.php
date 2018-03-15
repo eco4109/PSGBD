@@ -39,9 +39,10 @@
 	    </tr>
 
 	    <tr>
-	    	<td><label for="direccion">Cliente: </label></td>
+	    	<td><label>Cliente: </label></td>
 	    	<td>
-	    		<select class="form-control" name="cliente">
+	    		<select class="form-control" name="cliente" style="width: 250px; margin-top: 20px; margin-bottom: 20px;" >
+	    			<option value="--" class="form-control">---</option>
 	    		<?php
 	    			for ($i=0; $i < count($this->clients); $i++) {?>
 	    			<option> <?php echo $this->clients[$i]['nombre_comprador'] ;?></option>
@@ -55,13 +56,13 @@
 	    	<td style="padding:10px;"><input type="date" name="fecha" class="form-control" required=""></td>
 	    </tr>
 
-	    <td align="center"> <input type="submit" value="Enviar" class="btn btn-success" style="width: 100px;" required=""></input></td>
-	    <td align="center" style="padding:10px;"> <input type="reset" value="Limpiar" class="btn btn-primary" style="width: 100px;"></input></td>
+	    <td align="center"> <input type="submit" value="Enviar" class="btn btn-success" style="width: 100px; margin-top: 100px;" required=""></input></td>
+	    <td align="center" style="padding:10px;"> <input type="reset" value="Limpiar" class="btn btn-primary" style="width: 100px; margin-top: 100px;"></input></td>
 	</form>
 
 	<form method="post" action="pPrincipal">
 		<td>
-			<input type="submit" value="Regresar" class=" btn btn-warning" style="width:100px;">
+			<input  type="submit" value="Regresar" class=" btn btn-warning" style="width:100px; margin-top: 100px;">
 		</td>
 	</form>
 </tr>
