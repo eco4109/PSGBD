@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vue.js</title>
+	
+	
+</head>
+<body>
+	<div id = "app">
+		<h4>Aque onda</h4>
+		<tr>
+			
+			<h2>{{costo}}</h2>
+		<td>{{mensaje}}</td>
+		<td>{{precio}}</td>
+		<td>{{detalles}}</td>
+		</tr>
+	</div>
+	
+</body>
+<script src="vue.js"></script>
+<script type="text/javascript">
+	const app = new Vue({
+		el:'#app',
+		data:{
+			mensaje:'Hola Mundo VUE',
+			precio:3+4,
+			detalles:["uno","dos","tres"],
+			impuesto: 16,
+			moneda:'$',
+			articulo: "Plancha"
+		},
+		computed:{
+			mensajeAMinusculas(){
+				return this.mensaje.toLowerCase();
+			},
+			costo(){
+				let costoDelCoso = parseFloat(Math.round((this.impuesto/100)*this.precio)+this.precio).toFixed(2);
+				let salida = 'Este articulo cuesta ' + this.moneda + costoDelCoso;
+				salida += '('+this.moneda+this.precio+'antes del IVA)';
+				return salida;
+			}
+
+		}
+
+	});
+</script>
+</html>
