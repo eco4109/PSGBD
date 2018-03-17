@@ -168,6 +168,24 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 
 		}
 
+		public function CarvaVDecideRepo(){ //Funcion para cargar la vista de decidir que reporte
+			$this->load->view('VDecideRepo');
+		}
+
+		public function fGeneraReporte(){ //Funcion para generar el reporte especificado
+			//SE obtiene la opcion del reporte principal que va a ser (VENTAS O CPMPRAS)
+			$opcion = $this->input->post('primary');
+			if($opcion == 'Ventas'){//Van a ser reportes de VENTAS
+				//Obtenemos el reporte que se quiere de Ventas
+				$opcion = $this->input->post('secondary');
+
+			}else{ //Van a ser reportes de COMPRAS
+				//Obtenemos el reporte que se quiere de Compras
+				$opcion = $this->input->post('secondary');
+
+			}
+		}
+
 	public function confirmacion2(){
 		$opcion = $this->input->post('opcion');
 		if ($opcion =='Si'){
