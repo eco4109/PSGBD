@@ -28,9 +28,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$this->load->view('VAddPurchase');
 
 	}
-	public function confirmacion(){
-		$this->load->view('confirmacionCliente');
-	}
+	
 	public function fdecideVAgregar(){ //Funcion para decidir la vista de agregar que debe de desplegar (Cliente, articulo, proveedor)
 		$opcion=$this->input->post('opcion'); //Se obtiene la opcion elegida
 
@@ -182,6 +180,13 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$resultado = $this->load->model(buscaProveedores($opcion));
 		$data['resumen']=$resultado;
 		$this->load->view('VAddPurchase',$data);
+	}
+	public function confirmacion(){
+		$proveedores = $this->ModelosP->proveedoresAll();
+		$pro['pro'] = $proveedores;
+		if (isset($proveedores)){
+			$this->load->view('confirmacionCliente', $pro);
+		}
 	}
 
 }

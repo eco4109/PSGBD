@@ -103,6 +103,13 @@
 			return $resultado->result_array();
 		}
 
+		public function proveedoresAll(){
+			$query = "select nombre_proveedor from proveedor";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+
+		}
+
 
 	}
 ?>
