@@ -13,7 +13,7 @@
 <table align="center">
 	<tr>
 	    <td><label>Id del Articulo: </label></td>
-	    <td style="padding:10px;"><input type= text pattern="[0-9]" class = "form-control" name="ident" required></td>
+	    <td style="padding:10px;"><input  class = "form-control" name="ident" required></td>
 	</tr>
 	<tr>
 	    <td><label class="col-md-4 control-label" >Descripción del Articulo: </label></td>
@@ -27,14 +27,14 @@
 		<td>
 			<td> <input type="submit" value="Confirmar" class="btn btn-success" style="width: 100px;"></td>
 		</td>
-	
+
 </form>
 
 <form method= "post" action="CargaVAgregar">
-  	  	<td align="center" style="padding: 20px"> 
+  	  	<td align="center" style="padding: 20px">
    		 	<input type="submit" value="Regresar" class="btn btn-warning" style="width: 100px;"></input>
-   		 </td>  
-   	</tr>  		
+   		 </td>
+   	</tr>
 </form>
 </table>
 <body>
