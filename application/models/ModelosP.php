@@ -73,19 +73,29 @@
 			$resultado=$this->db->query($query);
 			return $resultado->result_array();
 		}
-		public function ObtenPrecioArt($idArts){//Funcion para obtener los precios de venta de los articulos
+		public function ObtenPrecioArt($desArts){//Funcion para obtener los precios de venta de los articulos
 			$precioArts = array();
-			for ($i=0; $i < count($idArts); $i++) {
-				$query = "SELECT precio_venta FROM articulo WHERE id_articulo = ".$idArts[$i];
+			for ($i=0; $i < count($desArts); $i++) {
+				$query = "SELECT precio_venta FROM articulo WHERE des_articulo = '".$desArts[$i]."'";
 				$resultado = $this->db->query($query);
 				$precioArts[$i] = $resultado->row_array();
 			}
 			return $precioArts;
 		}
 
+		public function ObtenIdArts($desArts){ //Funcion para obtener los ID de los articulos
+			$idArts = array();
+			for ($i=0; $i < count($desArts); $i++) {
+				$query = "SELECT id_articulo FROM articulo WHERE des_articulo = '".$desArts[$i]."'";
+				$resultado = $this->db->query($query);
+				$idArts[$i] = $resultado->row_array();
+			}
+			return $idArts;
+		}
+
 		public function AgregaVenta_Articulo($idVenta, $idArts, $cantArts, $precioArts){
 			for ($i=0; $i < count($idArts); $i++) {
-				$query = "INSERT INTO venta_articulo (id_venta, id_articulo, cant_ventas, precio_ventas) VALUES (".$idVenta.", ".$idArts[$i].", ".$cantArts[$i].", ".$precioArts[$i]['precio_venta'].")";
+				$query = "INSERT INTO venta_articulo (id_venta, id_articulo, cant_ventas, precio_ventas) VALUES (".$idVenta.", ".$idArts[$i]['id_articulo'].", ".$cantArts[$i].", ".$precioArts[$i]['precio_venta'].")";
 				$resultado = $this->db->query($query);
 			}
 			return $resultado;
@@ -107,7 +117,12 @@
 			$query = "select nombre_proveedor from proveedor";
 			$resultado = $this->db->query($query);
 			return $resultado->result_array();
+		}
 
+		public function VentasPorArticulo(){//Funcipon para obtener las Ventas por Articulo
+			$query = "SELECT articulo.id_articulo, des_articulo, sum(cant_ventas), 	SUM(precio_venta*cant_ventas) FROM venta, venta_articulo, articulo WHERE 	venta.id_venta = venta_articulo.id_venta  AND venta_articulo.id_articulo = articulo.id_articulo GROUP BY 1";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
 		}
 
 
