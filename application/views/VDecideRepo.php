@@ -17,22 +17,13 @@ $(function(){
 		var selected = $('#primary').val();
 		$('#secondary').empty();
 		options[selected].forEach(function(element,index){
-			$('#secondary').append('<option value='+element+'>'+element+'</option>');
+			$('#secondary').append('<option value='+element.length+'>'+element+'</option>');
 		});
 	}
 	$('#primary').change(fillSecondary);
 	fillSecondary();
 });
-
-
-jQuery(document).ready(function($) {
-	// Change es un evento que se ejecuta cada vez que se cambia el valor de un elemento (input, select, etc).
-	$('#secondary').change(function(e) {
-		$('#micampoTXTO').val($(this).val());
-	});
-});
 </script>
-
 
 </head>
 <body  >
@@ -52,11 +43,8 @@ jQuery(document).ready(function($) {
 					<select class="form-control" id="secondary" name="secondary" style="width: 150px; margin-top: 20px;" >
 					</select>
 
-					<label for="MicampoTXTO"></label>
-					<input type="text" name="MicampoTXTO" id="MicampoTXTO" />
-
-
-					<input type="submit" value="Generar Reporte" class="btn btn-success" style="width: 150px; margin-top: 70px;">
+					<input name="idC" id="idC" type="text" class="form-control" placeholder="Id correspondiente" style="margin-top: 20px; width: 150px;">
+					<input type="submit" value="Generar Reporte" class="btn btn-success" style="width: 150px; margin-top: 20px;">
 				</td>
 			</tr>
 	</form>
@@ -65,6 +53,7 @@ jQuery(document).ready(function($) {
 			<input type="submit" value="Regresar" class="btn btn-warning" style="width: 150px; margin-top: 10px" >
 		</td>
 	</form>
+
 </table>
 </body>
 </html>

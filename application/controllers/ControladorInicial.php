@@ -2,6 +2,24 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+require('C:/xampp/fpdf/fpdf.php');
+
+class PDF extends FPDF{ //Clase que extiende de FPDF
+
+	function Header(){
+		
+	}
+
+	function Footer(){
+	// Posición: a 1,5 cm del final
+		$this->SetY(-1.5);
+		// Arial italic 8
+		$this->SetFont('Arial','I',0.8);
+		//Imagen de footer
+		$this->Image('C:\xampp\fpdf\footerUaemex.png',2,25,15,3);
+	}
+}
+
 
 class ControladorInicial extends CI_controller{ //Controlador principal que carga el inicio de la aplicación
 
@@ -151,11 +169,14 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		//Se obtiene el id de la venta
 		$idVenta = $this->input->post('idVenta');
 			//En un ARREGLO se guardan los id de los productos vendidos
-		$idArts = $this->input->post('idArts');
+		$desArts = $this->input->post('desArts');
 			//En otro ARREGLO se guardan las cantidades de los productos
 		$cantArts = $this->input->post('cantArts');
+
 		//Obtenerun vector del precio de venta de cada articulo
-		$precioArts= $this->ModelosP->ObtenPrecioArt($idArts);
+		$precioArts= $this->ModelosP->ObtenPrecioArt($desArts);
+		//Obtener el id de los articulos que se eligieron
+		$idArts= $this->ModelosP->ObtenIdArts($desArts);
 
 
 		//Agregar la informacion de los articulos comprados a la tabla venta_articulo
@@ -174,14 +195,50 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 
 		public function fGeneraReporte(){ //Funcion para generar el reporte especificado
 			//SE obtiene la opcion del reporte principal que va a ser (VENTAS O CPMPRAS)
-			$opcion = $this->input->post('primary');
-			if($opcion == 'Ventas'){//Van a ser reportes de VENTAS
-				//Obtenemos el reporte que se quiere de Ventas
-				$opcion = $this->input->post('secondary');
+			$opcionP = $this->input->post('primary');
+			$opcionS = $this->input->post('secondary');
+			$idC = $this->input->post('idC');
 
+			if($opcionP == 'Ventas'){//Van a ser reportes de VENTAS
+				if($opcionS == '9'){ //Es un reporte de VENTA POR FOLIO}
+				echo "Es un reporte de VENTA POR FOLIO";
+				}elseif($opcionS == '11'){//Es un reporte de VENTAS POR CLIENTE
+					echo "Es un reporte de VENTAS POR CLIENTE";
+
+				}else{ //Es un reporte de VENTAS POR ARTICULO
+					$VentPorArt = $this->ModelosP->VentasPorArticulo();
+					//var_dump($VentPorArt);
+					
+					$pdf = new PDF('P', 'cm', 'a4');
+					$pdf->AddPage();
+					$pdf->SetFont('Arial','B',19);
+					$pdf->Cell(19,2,'Reporte De Articulos',0,1,'C');
+					$pdf->Ln(1);
+
+					$pdf->SetFont('Arial','B',12);
+
+					$pdf->SetDrawColor(0,80,180);
+					$pdf->SetFillColor(430,430,10);
+					//$pdf->SetTextColor(250,250,50);
+					$pdf->SetLineWidth(0.08);
+
+					$pdf->Cell(3, 1, "Id", 1, 0, 'C');
+					$pdf->Cell(7, 1, "Nombre", 1, 0, 'C');
+					$pdf->Cell(5, 1, "Unidades Vendidas", 1, 0, 'C');
+					$pdf->Cell(4, 1, "Suma total", 1, 1, 'C');
+					$pdf->Ln();
+
+					for ($i=0; $i < count($VentPorArt); $i++) {
+						$pdf->Cell(3, 1, $VentPorArt[$i]["id_articulo"], 1, 0, 'C');
+						$pdf->Cell(7, 1, $VentPorArt[$i]["des_articulo"], 1, 0, 'C');
+						$pdf->Cell(5, 1, $VentPorArt[$i]["sum(cant_ventas)"], 1, 0, 'C');
+						$pdf->Cell(4, 1, $VentPorArt[$i]["SUM(precio_venta*cant_ventas)"], 1, 1, 'C');
+					}
+					$pdf->Output();
+
+					
+				}
 			}else{ //Van a ser reportes de COMPRAS
-				//Obtenemos el reporte que se quiere de Compras
-				$opcion = $this->input->post('secondary');
 
 			}
 		}
