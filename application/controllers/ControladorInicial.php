@@ -7,14 +7,12 @@ require('C:/xampp/fpdf/fpdf.php');
 class PDF extends FPDF{ //Clase que extiende de FPDF
 
 	function Header(){
-		
+		$date = date('F d, o');
+		$this->SetFont('Times','I',12);
+		$this->Cell(35,2,$date,0,1,'C');
 	}
 
 	function Footer(){
-	// Posición: a 1,5 cm del final
-		$this->SetY(-1.5);
-		// Arial italic 8
-		$this->SetFont('Arial','I',0.8);
 		//Imagen de footer
 		$this->Image('C:\xampp\fpdf\footerUaemex.png',2,25,15,3);
 	}
@@ -200,48 +198,104 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 			$idC = $this->input->post('idC');
 
 			if($opcionP == 'Ventas'){//Van a ser reportes de VENTAS
-				if($opcionS == '9'){ //Es un reporte de VENTA POR FOLIO}
-				echo "Es un reporte de VENTA POR FOLIO";
-				}elseif($opcionS == '11'){//Es un reporte de VENTAS POR CLIENTE
-					echo "Es un reporte de VENTAS POR CLIENTE";
-
+				if($opcionS == '11'){ //Es un reporte de VENTA POR FOLIO}
+					$this->GRVpFactura();
+				}elseif($opcionS == '12'){//Es un reporte de VENTAS POR CLIENTE
+					$this->GRVpCliente();
 				}else{ //Es un reporte de VENTAS POR ARTICULO
-					$VentPorArt = $this->ModelosP->VentasPorArticulo();
-					//var_dump($VentPorArt);
-					
-					$pdf = new PDF('P', 'cm', 'a4');
-					$pdf->AddPage();
-					$pdf->SetFont('Arial','B',19);
-					$pdf->Cell(19,2,'Reporte De Articulos',0,1,'C');
-					$pdf->Ln(1);
-
-					$pdf->SetFont('Arial','B',12);
-
-					$pdf->SetDrawColor(0,80,180);
-					$pdf->SetFillColor(430,430,10);
-					//$pdf->SetTextColor(250,250,50);
-					$pdf->SetLineWidth(0.08);
-
-					$pdf->Cell(3, 1, "Id", 1, 0, 'C');
-					$pdf->Cell(7, 1, "Nombre", 1, 0, 'C');
-					$pdf->Cell(5, 1, "Unidades Vendidas", 1, 0, 'C');
-					$pdf->Cell(4, 1, "Suma total", 1, 1, 'C');
-					$pdf->Ln();
-
-					for ($i=0; $i < count($VentPorArt); $i++) {
-						$pdf->Cell(3, 1, $VentPorArt[$i]["id_articulo"], 1, 0, 'C');
-						$pdf->Cell(7, 1, $VentPorArt[$i]["des_articulo"], 1, 0, 'C');
-						$pdf->Cell(5, 1, $VentPorArt[$i]["sum(cant_ventas)"], 1, 0, 'C');
-						$pdf->Cell(4, 1, $VentPorArt[$i]["SUM(precio_venta*cant_ventas)"], 1, 1, 'C');
-					}
-					$pdf->Output();
-
-					
+					$this->GRVpArt();
 				}
 			}else{ //Van a ser reportes de COMPRAS
 
 			}
 		}
+
+
+	public function GRVpFactura(){
+		$VentPorFactura = $this->ModelosP->VentasPorFactura();
+		$pdf = new PDF('P', 'cm', 'a4');
+		$pdf->AddPage();
+		$pdf->SetFont('Times','BU',21);
+		$pdf->Cell(19,1,'Reporte De Facturas',0,0,'C');
+		$pdf->Ln(1);
+		$pdf->Ln(1);
+		$pdf->SetFont('Times','B',16);
+		$pdf->SetDrawColor(0,80,180);
+		$pdf->SetFillColor(430,430,10);
+		$pdf->SetLineWidth(0.08);
+		$pdf->Cell(3, 1, "Id Factura", 1, 0, 'C');
+		$pdf->Cell(7, 1, "Nombre del Comprador", 1, 0, 'C');
+		$pdf->Cell(5, 1, "Fecha de Venta", 1, 0, 'C');
+		$pdf->Cell(4, 1, "Total", 1, 1, 'C');
+		$pdf->Ln();
+		$pdf->SetFont('Times','',12);
+
+		for ($i=0; $i < count($VentPorFactura); $i++) {
+			$pdf->Cell(3, 1, $VentPorFactura[$i]["folio_factura"], 1, 0, 'C');
+			$pdf->Cell(7, 1, $VentPorFactura[$i]["nombre_comprador"], 1, 0, 'C');
+			$pdf->Cell(5, 1, $VentPorFactura[$i]["fech_venta"], 1, 0, 'C');
+			$pdf->Cell(4, 1, $VentPorFactura[$i]["Total"], 1, 1, 'C');
+		}
+		$pdf->Output();		
+	}
+
+	public function GRVpCliente(){ //Funcion para generar reporte de VENTAS por CLIENTE
+		$VentPorCliente = $this->ModelosP->VentasPorCliente();
+
+		$pdf = new PDF('P', 'cm', 'a4');
+		$pdf->AddPage();
+		$pdf->SetFont('Times','BU',21);
+		$pdf->Cell(19,1,'Reporte De Clientes',0,0,'C');
+		$pdf->Ln(1);
+		$pdf->Ln(1);
+		$pdf->SetFont('Times','B',16);
+		$pdf->SetDrawColor(0,80,180);
+		$pdf->SetFillColor(430,430,10);
+		$pdf->SetLineWidth(0.08);
+		$pdf->Cell(4, 1, "Id Cliente",1, 0, 'C');
+		$pdf->Cell(7, 1, "Nombre del Cliente", 1, 0, 'C');
+		$pdf->Cell(4, 1, "Suma total", 1, 1, 'C');
+		$pdf->Ln();
+		$pdf->SetFont('Times','',12);
+
+		for ($i=0; $i < count($VentPorCliente); $i++) {
+			$pdf->Cell(4, 1, $VentPorCliente[$i]["id_cliente"], 1, 0, 'C');
+			$pdf->Cell(7, 1, $VentPorCliente[$i]["nombre_comprador"], 1, 0, 'C');
+			$pdf->Cell(4, 1, $VentPorCliente[$i]["SUM(precio_venta*cant_ventas)"], 1, 1, 'C');
+		}
+		$pdf->Output();
+	}
+
+
+	public function GRVpArt(){ //Funcion para generar reporte de VENTAS por ARTICULO
+		$VentPorArt = $this->ModelosP->VentasPorArticulo();
+		//var_dump($VentPorArt);
+		$pdf = new PDF('P', 'cm', 'a4');
+		$pdf->AddPage();
+		$pdf->SetFont('Times','BU',21);
+		$pdf->Cell(19,1,'Reporte De Articulos',0,0,'C');
+		$pdf->Ln(1);
+		$pdf->Ln(1);
+		$pdf->SetFont('Times','B',16);
+		$pdf->SetDrawColor(0,80,180);
+		$pdf->SetFillColor(430,430,10);
+		$pdf->SetLineWidth(0.08);
+		$pdf->Cell(3, 1, "Id", 1, 0, 'C');
+		$pdf->Cell(7, 1, "Nombre", 1, 0, 'C');
+		$pdf->Cell(5, 1, "Unidades Vendidas", 1, 0, 'C');
+		$pdf->Cell(4, 1, "Suma total", 1, 1, 'C');
+		$pdf->Ln();
+		$pdf->SetFont('Times','',12);
+
+		for ($i=0; $i < count($VentPorArt); $i++) {
+			$pdf->Cell(3, 1, $VentPorArt[$i]["id_articulo"], 1, 0, 'C');
+			$pdf->Cell(7, 1, $VentPorArt[$i]["des_articulo"], 1, 0, 'C');
+			$pdf->Cell(5, 1, $VentPorArt[$i]["sum(cant_ventas)"], 1, 0, 'C');
+			$pdf->Cell(4, 1, $VentPorArt[$i]["SUM(precio_venta*cant_ventas)"], 1, 1, 'C');
+		}
+		$pdf->Output();		
+
+	}
 
 	public function confirmacion2(){
 		$opcion = $this->input->post('opcion');

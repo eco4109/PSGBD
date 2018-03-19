@@ -8,8 +8,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script>
 var options = {
-		Ventas : ["Por folio","Por cliente", "Por articulo"],
-		Compras : ["Por folio","Por proveedor", "Por articulo"],
+		Ventas : ["Por factura","Por cliente.", "Por articulo."],
+		Compras : ["Por factura","Por proveedor", "Por articulo"],
 	}
 
 $(function(){
@@ -43,7 +43,6 @@ $(function(){
 					<select class="form-control" id="secondary" name="secondary" style="width: 150px; margin-top: 20px;" >
 					</select>
 
-					<input name="idC" id="idC" type="text" class="form-control" placeholder="Id correspondiente" style="margin-top: 20px; width: 150px;">
 					<input type="submit" value="Generar Reporte" class="btn btn-success" style="width: 150px; margin-top: 20px;">
 				</td>
 			</tr>
