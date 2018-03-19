@@ -257,8 +257,25 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$this->load->view('VAddPurchase',$data);
 	}
 	public function confirmacion(){
+		$clientes = $this->ModelosP->obtieneClientes();
 		$proveedores = $this->ModelosP->proveedoresAll();
-		$pro['pro'] = $proveedores;
+		//esta parte es para tratar el vector de vectores que regresa proveedoresAll, y para eso se hace el for, para guardar lo que tiene proveedores en un vector simple para despues mandarlo a la vista
+		for ($i=0; $i < count($proveedores) ; $i++) { 
+			$pro = $proveedores[$i];
+			$vector [$i] = $pro['nombre_proveedor'];
+			$vector2[$i] = $pro['id_proveedor'];
+
+
+		}
+		for ($i=0; $i < count($clientes) ; $i++) { 
+			$pro2 = $clientes[$i];
+			$idClient[$i] = $pro2['id_cliente'];
+			$buyerName[$i] = $pro2['nombre_comprador'];
+		}	
+		$pro['campo'] = $vector;
+		$pro['id'] = $vector2;
+		$pro['name'] = $buyerName;
+		$pro['idClient']= $idClient;
 		if (isset($proveedores)){
 			$this->load->view('confirmacionCliente', $pro);
 		}
