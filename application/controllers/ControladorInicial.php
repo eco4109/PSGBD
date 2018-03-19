@@ -203,8 +203,10 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 				}else{ //Es un reporte de VENTAS POR ARTICULO
 					$this->GRVpArt();
 				}
-			}else{ //Van a ser reportes de COMPRAS
+			}elseif($opcionP == "Compras"){ //Van a ser reportes de COMPRAS
 
+			}else{ //Va a ser reporte de EXISTENCIAS de ARTICULOS
+				$this->GREArts();
 			}
 		}
 
@@ -292,6 +294,35 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 			$pdf->Cell(4, 1, $VentPorArt[$i]["SUM(precio_venta*cant_ventas)"], 1, 1, 'C');
 		}
 		$pdf->Output();		
+
+	}
+
+	public function GREArts(){ //Funcion para generar reporte de EXISTENCIAS de ARTICULOS
+		//Obtener los articulos y sus existencias.
+		$ExisArts = $this->ModelosP->ObtenExisArts();
+
+		$pdf = new PDF('P', 'cm', 'a4');
+		$pdf->AddPage();
+		$pdf->SetFont('Times','BU',21);
+		$pdf->Cell(19,1,'Existencias de Articulos',0,0,'C');
+		$pdf->Ln(1);
+		$pdf->Ln(1);
+		$pdf->SetFont('Times','B',16);
+		$pdf->SetDrawColor(0,80,180);
+		$pdf->SetFillColor(430,430,10);
+		$pdf->SetLineWidth(0.08);
+		$pdf->Cell(3, 1, "Id", 1, 0, 'C');
+		$pdf->Cell(7, 1, "Nombre", 1, 0, 'C');
+		$pdf->Cell(5, 1, "Existencias", 1, 0, 'C');
+		$pdf->Ln();
+		$pdf->SetFont('Times','',12);
+
+		for ($i=0; $i < count($ExisArts); $i++) {
+			$pdf->Cell(3, 1, $ExisArts[$i]["id_articulo"], 1, 0, 'C');
+			$pdf->Cell(7, 1, $ExisArts[$i]["des_articulo"], 1, 0, 'C');
+			$pdf->Cell(5, 1, $ExisArts[$i]["existencias"], 1, 1, 'C');
+		}
+		$pdf->Output();
 
 	}
 

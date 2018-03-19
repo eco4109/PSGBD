@@ -38,6 +38,7 @@ $(function(){
 						<option selected> --- </option>
 						<option value="Ventas">Ventas</option>
 						<option value="Compras">Compras</option>
+						<option value="E.Arts">Existencias Art.</option>
 					</select>
 
 					<select class="form-control" id="secondary" name="secondary" style="width: 150px; margin-top: 20px;" >

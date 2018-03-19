@@ -137,6 +137,12 @@
 			return $resultado->result_array();
 		}
 
+		public function ObtenExisArts(){ //Funcion para obtener las existencias de los articulos
+			$query = "SELECT id_articulo, des_articulo, existencias FROM articulo ";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+		}
+
 
 	}
 ?>
