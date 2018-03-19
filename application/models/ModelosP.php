@@ -130,6 +130,24 @@
 			return $resultado->result_array();
 		}
 
+		public function VentasPorFactura(){ //Funcion para obtener las VENTAS por FACTURA
+			$query = "SELECT folio_factura, nombre_comprador, fech_venta, SUM(cant_ventas*precio_ventas) as Total FROM cliente, venta, venta_articulo WHERE cliente.id_cliente = venta.id_cliente AND venta.id_venta = venta_articulo.id_venta GROUP BY folio_factura";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+		}
+
+		public function VentasPorCliente(){
+			$query = "SELECT cliente.id_cliente, nombre_comprador, SUM(precio_venta*cant_ventas) FROM 	cliente, venta, venta_articulo, articulo WHERE cliente.id_cliente = venta.id_cliente AND 	venta.id_venta = venta_articulo.id_venta AND venta_articulo.id_articulo = 	articulo.id_articulo GROUP BY 1";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+		}
+
+		public function ObtenExisArts(){ //Funcion para obtener las existencias de los articulos
+			$query = "SELECT id_articulo, des_articulo, existencias FROM articulo ";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+		}
+
 
 	}
 ?>
