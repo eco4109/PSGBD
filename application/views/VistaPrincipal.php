@@ -22,22 +22,25 @@
 	<form method= "post" action="fGeneraVenta">
 		<table align="center">
 		<tr>
+ 	  		<td align="center" style="padding: 10px"> 
+   		 		<input type="submit" value="Ventas" class="btn btn-success" style="width: 200px;"></input>
+   		 	</td>  
   	  		<td align="center" style="padding: 10px">
    		 		<input type="submit" value="Hacer una Venta" class="btn btn-success" style="width: 200px;"></input>
    		 	</td>
-	</form>
+</form>
 
 
 	<form method= "post" action="confirmacion">
 		<table align="center">
 		<tr>
+  	  		<td align="center" style="padding: 10px"> 
+   		 		<input type="submit" value="Compras" class="btn btn-success" style="width: 200px;"></input>
+   		 	</td>    		
   	  		<td align="center" style="padding: 10px">
    		 		<input type="submit" value="Hacer una Compra" class="btn btn-success" style="width: 200px;"></input>
    		 	</td>
 	</form>
-
-
-
 
 
 

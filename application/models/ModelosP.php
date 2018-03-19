@@ -113,6 +113,12 @@
 			return $resultado->result_array();
 		}
 
+		public function proveedoresAll(){
+			$query = "select nombre_proveedor from proveedor";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+		}
+
 		public function VentasPorArticulo(){//Funcipon para obtener las Ventas por Articulo
 			$query = "SELECT articulo.id_articulo, des_articulo, sum(cant_ventas), 	SUM(precio_venta*cant_ventas) FROM venta, venta_articulo, articulo WHERE 	venta.id_venta = venta_articulo.id_venta  AND venta_articulo.id_articulo = articulo.id_articulo GROUP BY 1";
 			$resultado = $this->db->query($query);
