@@ -20,7 +20,6 @@ $(function(){
 			$('#secondary').append('<option value='+element.length+'>'+element+'</option>');
 		});
 	}
-	console.log($element.length.value());
 	$('#primary').change(fillSecondary);
 	fillSecondary();
 });

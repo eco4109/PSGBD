@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 //WINDOWS: 
-require('C:/xampp/fpdf/fpdf.php');
+require('C:\xampp\fpdf\fpdf.php');
 //UBUNTU:
 //require('/opt/lampp/htdocs/fpdf/fpdf.php');
 
@@ -18,7 +18,7 @@ class PDF extends FPDF{ //Clase que extiende de FPDF
 	function Footer(){
 		//Imagen de footer
 		//Para WINDOWS:
-		$this->Image('C:\xampp\fpdf\footerUaemex.png',2,25,15,3);
+		//$this->Image('C:\xampp\fpdf\footerUaemex.png',2,25,15,3);
 
 		//Para UBUNTU:
 		//$this->Image('/opt/lampp/htdocs/fpdf/footerUaemex.jpeg',2,25,15,3);
@@ -272,7 +272,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$pdf->Cell(3, 1, "Id compra", 1, 0, 'C');
 		$pdf->Cell(7, 1, "Id articulo", 1, 0, 'C');
 		$pdf->Cell(5, 1, "Fecha de compra", 1, 0, 'C');
-		$pdf->Cell(4, 1, "Precio de Compra", 1, 1, 'C');
+		$pdf->Cell(4, 1, "Precio Compra", 1, 1, 'C');
 		$pdf->Ln();
 		$pdf->SetFont('Times','',12);
 
@@ -340,7 +340,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 
 
 	public function GRVpArt(){ //Funcion para generar reporte de VENTAS por ARTICULO
-		$VentPorArt = $this->ModelosP->VentasPorArticulo();
+		$VentPorArt = $this->ModelosP->ComprasPorArticulo ();
 		//var_dump($VentPorArt);
 		$pdf = new PDF('P', 'cm', 'a4');
 		$pdf->AddPage();
@@ -369,7 +369,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 
 	}
 	public function GRCpArt(){ //Funcion para generar reporte de VENTAS por ARTICULO
-		$VentPorArt = $this->ModelosP->ComprasPorArticulo();
+		$VentPorArt = $this->ModelosP->VentasPorArticulo();
 		//var_dump($VentPorArt);
 		$pdf = new PDF('P', 'cm', 'a4');
 		$pdf->AddPage();
