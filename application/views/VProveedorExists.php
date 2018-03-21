@@ -8,9 +8,9 @@
 </head>
 
 <body>
-	<form method= "post" action="pPrincipal">
+	<form method= "post" action="CargaVAgregar">
 		<table align="center">
-		<h1 align="center">¡Exito!, Venta Agregada :)</h1>
+		<h1 align="center">ERROR!, Ese Proveedor ya existe :(</h1>
 		<tr>
   	  		<td align="center" style="padding: 10px">
    		 		<input type="submit" value="Regresar" class="botonNaranja" style="width: 100px;"></input>

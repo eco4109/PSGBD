@@ -26,14 +26,89 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
 <style type="text/css">
 	body{
-		background-image: url(https://images.unsplash.com/photo-1433785124354-92116416b870?q=80&fm=jpg&s=38f06298f26c11c59024eabf3b0be3bb);
+		background-image: url(http://eskipaper.com/images/minimalism-1.jpg);
 		background-position: center center;
 		background-repeat: no-repeat;
 		background-attachment: fixed;
 		background-size: cover;
 	}form{
-		color: white; 
+		color: white;
 	}
+
+
+.botonVerde {
+  color: #229954 !important;
+  font-size: 20px;
+  font-family: Times;
+  font-weight: 400;
+  padding: 0.1em .55em;
+  background: rgba(0,0,0,0);
+  border: 2px solid;
+  border-color: #229954;
+  transition: all .5s ease;
+  position: relative;
+  border-radius: 12px;
+  height: 45px;
+}
+.botonVerde:hover {
+  background: #229954;
+  color: #fff !important;
+}
+
+.botonNaranja {
+  color: #E67E22 !important;
+  font-size: 20px;
+  font-family: Times;
+  font-weight: 400;
+  padding: 0.1em .8em;
+  background: rgba(0,0,0,0);
+  border: 2px solid;
+  border-color: #E67E22;
+  transition: all .5s ease;
+  position: relative;
+  border-radius: 12px;
+}
+.botonNaranja:hover {
+  background: #E67E22;
+  color: #fff !important;
+}
+
+
+.botonRojo {
+  color: #922B21 !important;
+  font-size: 20px;
+  font-family: Times;
+  font-weight: 400;
+  padding: 0.1em .8em;
+  background: rgba(0,0,0,0);
+  border: 2px solid;
+  border-color: #922B21;
+  transition: all .5s ease;
+  position: relative;
+  border-radius: 12px;
+}
+.botonRojo:hover {
+  background: #922B21;
+  color: #fff !important;
+}
+
+.botonAzul {
+  color: #1a5276   !important;
+  font-size: 20px;
+  font-family: Times;
+  font-weight: 400;
+  padding: 0.1em .8em;
+  background: rgba(0,0,0,0);
+  border: 2px solid;
+  border-color:  #1a5276  ;
+  transition: all .5s ease;
+  position: relative;
+  border-radius: 12px;
+}
+.botonAzul:hover {
+  background: #1a5276;
+  color: #fff !important;
+}
 
 
 </style>
