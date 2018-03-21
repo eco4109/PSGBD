@@ -92,7 +92,6 @@
   color: #fff !important;
 }
 
-<<<<<<< HEAD
 .botonAzul {
   color: #1a5276   !important;
   font-size: 20px;
