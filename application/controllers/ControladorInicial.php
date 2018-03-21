@@ -86,10 +86,13 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$id = $this->input->post('ident');
 		$nombre = $this->input->post('nombre');
 		$nombre = strtoupper($nombre);
-
-		$query = $this->ModelosP->InsertaCliente($id, $nombre);
-		if ($query == TRUE) {
+		//Verificar si ya existe un cliente con ese NOMBRE
+		$verifyClient = $this->ModelosP->verifyClient($nombre);
+		if($verifyClient == NULL){ //No existe ese cliente, así que se agrega
+			$query = $this->ModelosP->InsertaCliente($id, $nombre);
 			$this->load->view('VAddClientDone');
+		}else{
+			$this->load->view('VClientExists');
 		}
 
 	}

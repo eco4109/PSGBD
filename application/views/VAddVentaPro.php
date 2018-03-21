@@ -8,10 +8,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
 <style type="text/css">
 
-body {
-	font: 13px verdana;
-	font-weight: normal;
-}
 .bt {
   -webkit-border-radius: 12;
   -moz-border-radius: 12;
@@ -32,14 +28,15 @@ body {
 body {
 	width: 100%;
 	height: 100%;
-	position: fixed;
+	position: relative;
+	top: 70px;
 	background-color: #34495e;
 }
 
 .content {
-	position: absolute;
-	top: 14%;
-	left: 50%;
+	position: relative;
+	
+	left: 85%;
 	-webkit-transform: translate(-50%, -50%);
 					transform: translate(-50%, -50%);
 	height: 50px;
@@ -57,12 +54,13 @@ body {
 }
 .content__container:before {
 	content: '[';
-	left: 30px;
+	position: relative;
+	left: 1px;
 }
 .content__container:after {
 	content: ']';
-	position: absolute;
-	right: 30px;
+	position: relative;
+	right: 3px;
 }
 .content__container:after, .content__container:before {
 	position: absolute;
@@ -82,22 +80,7 @@ body {
 	float: left;
 	margin: 0;
 }
-.content__container__list {
-	margin-top: 0;
-	padding-left: 150px;
-	text-align: left;
-	list-style: none;
-	-webkit-animation-name: change;
-	-webkit-animation-duration: 10s;
-	-webkit-animation-iteration-count: infinite;
-	animation-name: change;
-	animation-duration: 10s;
-	animation-iteration-count: infinite;
-}
-.content__container__list__item {
-	line-height: 40px;
-	margin: 0;
-}
+
 
 @-webkit-keyframes opacity {
 	0%, 100% {
@@ -112,26 +95,6 @@ body {
 		-webkit-transform: translate3d(0, 0, 0);
 						transform: translate3d(0, 0, 0);
 	}
-	16.66%, 29.32% {
-		-webkit-transform: translate3d(0, -25%, 0);
-						transform: translate3d(0, -25%, 0);
-	}
-	33.32%,45.98% {
-		-webkit-transform: translate3d(0, -50%, 0);
-						transform: translate3d(0, -50%, 0);
-	}
-	49.98%,62.64% {
-		-webkit-transform: translate3d(0, -75%, 0);
-						transform: translate3d(0, -75%, 0);
-	}
-	66.64%,79.3% {
-		-webkit-transform: translate3d(0, -50%, 0);
-						transform: translate3d(0, -50%, 0);
-	}
-	83.3%,95.96% {
-		-webkit-transform: translate3d(0, -25%, 0);
-						transform: translate3d(0, -25%, 0);
-	}
 }
 @keyframes opacity {
 	0%, 100% {
@@ -145,26 +108,6 @@ body {
 	0%, 12.66%, 100% {
 		-webkit-transform: translate3d(0, 0, 0);
 						transform: translate3d(0, 0, 0);
-	}
-	16.66%, 29.32% {
-		-webkit-transform: translate3d(0, -25%, 0);
-						transform: translate3d(0, -25%, 0);
-	}
-	33.32%,45.98% {
-		-webkit-transform: translate3d(0, -50%, 0);
-						transform: translate3d(0, -50%, 0);
-	}
-	49.98%,62.64% {
-		-webkit-transform: translate3d(0, -75%, 0);
-						transform: translate3d(0, -75%, 0);
-	}
-	66.64%,79.3% {
-		-webkit-transform: translate3d(0, -50%, 0);
-						transform: translate3d(0, -50%, 0);
-	}
-	83.3%,95.96% {
-		-webkit-transform: translate3d(0, -25%, 0);
-						transform: translate3d(0, -25%, 0);
 	}
 }
 
@@ -306,7 +249,7 @@ $('body').append(divValue);
 
 
 
-<div id="main" align="center" style="margin-top: 150px;">
+<div id="main" align="center" style="margin-top: 40px;">
 	<input type="button" id="btAdd" value="Añadir Articulo" class="bt" />
 	<!--<input type="button" id="btRemove" value="Eliminar Articulo" class="bt" />-->
 	<input type="button" id="btRemoveAll" value="Eliminar Todos" class="bt" /><br />

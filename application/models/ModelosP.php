@@ -143,6 +143,13 @@
 			return $resultado->result_array();
 		}
 
+		public function verifyClient($nombre){ //Funcion para verificar si ya existe un cliente , DADO SU NOMBRE
+			$query = "SELECT * FROM cliente WHERE nombre_comprador =  '".$nombre."'";
+			$resultado = $this->db->query($query);
+			return $resultado->row_array();
+
+		}
+
 
 	}
 ?>
