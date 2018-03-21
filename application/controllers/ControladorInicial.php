@@ -204,6 +204,13 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 					$this->GRVpArt();
 				}
 			}elseif($opcionP == "Compras"){ //Van a ser reportes de COMPRAS
+				if ($opcionS == '11') {//por 
+					$this->GRCpFactura();
+				}elseif ($opcionS== '12') {//por factura
+					$this->GRCpCliente();
+				}else{//compras por articulo
+					$this->GRCpArt();
+				}
 
 			}else{ //Va a ser reporte de EXISTENCIAS de ARTICULOS
 				$this->GREArts();
@@ -238,7 +245,60 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		}
 		$pdf->Output();		
 	}
+	public function GRCpFactura(){
+		$VentPorFactura = $this->ModelosP->comprasPorId();
+		$pdf = new PDF('P', 'cm', 'a4');
+		$pdf->AddPage();
+		$pdf->SetFont('Times','BU',21);
+		$pdf->Cell(19,1,'Reporte De Facturas',0,0,'C');
+		$pdf->Ln(1);
+		$pdf->Ln(1);
+		$pdf->SetFont('Times','B',16);
+		$pdf->SetDrawColor(0,80,180);
+		$pdf->SetFillColor(430,430,10);
+		$pdf->SetLineWidth(0.08);
+		$pdf->Cell(3, 1, "Id compra", 1, 0, 'C');
+		$pdf->Cell(7, 1, "Id articulo", 1, 0, 'C');
+		$pdf->Cell(5, 1, "Fecha de compra", 1, 0, 'C');
+		$pdf->Cell(4, 1, "Precio de Compra", 1, 1, 'C');
+		$pdf->Ln();
+		$pdf->SetFont('Times','',12);
 
+		for ($i=0; $i < count($VentPorFactura); $i++) {
+			$pdf->Cell(3, 1, $VentPorFactura[$i]["id_compra"], 1, 0, 'C');
+			$pdf->Cell(7, 1, $VentPorFactura[$i]["id_articulo"], 1, 0, 'C');
+			$pdf->Cell(5, 1, $VentPorFactura[$i]["fecha_compra"], 1, 0, 'C');
+			$pdf->Cell(4, 1, $VentPorFactura[$i]["precio_compra"], 1, 1, 'C');
+		}
+		$pdf->Output();		
+	}
+
+	public function GRCpCliente(){ //Funcion para generar reporte de VENTAS por CLIENTE
+		$VentPorCliente = $this->ModelosP->ComprasPorCliente ();
+
+		$pdf = new PDF('P', 'cm', 'a4');
+		$pdf->AddPage();
+		$pdf->SetFont('Times','BU',21);
+		$pdf->Cell(19,1,'Reporte De Clientes',0,0,'C');
+		$pdf->Ln(1);
+		$pdf->Ln(1);
+		$pdf->SetFont('Times','B',16);
+		$pdf->SetDrawColor(0,80,180);
+		$pdf->SetFillColor(430,430,10);
+		$pdf->SetLineWidth(0.08);
+		$pdf->Cell(4, 1, "Id Cliente",1, 0, 'C');
+		$pdf->Cell(7, 1, "Nombre del Cliente", 1, 0, 'C');
+		$pdf->Cell(4, 1, "Suma total", 1, 1, 'C');
+		$pdf->Ln();
+		$pdf->SetFont('Times','',12);
+
+		for ($i=0; $i < count($VentPorCliente); $i++) {
+			$pdf->Cell(4, 1, $VentPorCliente[$i]["id_proveedor"], 1, 0, 'C');
+			$pdf->Cell(7, 1, $VentPorCliente[$i]["nombre_proveedor"], 1, 0, 'C');
+			$pdf->Cell(4, 1, $VentPorCliente[$i]["total"], 1, 1, 'C');
+		}
+		$pdf->Output();
+	}
 	public function GRVpCliente(){ //Funcion para generar reporte de VENTAS por CLIENTE
 		$VentPorCliente = $this->ModelosP->VentasPorCliente();
 
@@ -283,6 +343,35 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$pdf->Cell(3, 1, "Id", 1, 0, 'C');
 		$pdf->Cell(7, 1, "Nombre", 1, 0, 'C');
 		$pdf->Cell(5, 1, "Unidades Vendidas", 1, 0, 'C');
+		$pdf->Cell(4, 1, "Suma total", 1, 1, 'C');
+		$pdf->Ln();
+		$pdf->SetFont('Times','',12);
+
+		for ($i=0; $i < count($VentPorArt); $i++) {
+			$pdf->Cell(3, 1, $VentPorArt[$i]["id_articulo"], 1, 0, 'C');
+			$pdf->Cell(7, 1, $VentPorArt[$i]["des_articulo"], 1, 0, 'C');
+			$pdf->Cell(5, 1, $VentPorArt[$i]["totalCom"], 1, 0, 'C');
+			$pdf->Cell(4, 1, $VentPorArt[$i]["totalMon"], 1, 1, 'C');
+		}
+		$pdf->Output();		
+
+	}
+	public function GRCpArt(){ //Funcion para generar reporte de VENTAS por ARTICULO
+		$VentPorArt = $this->ModelosP->ComprasPorArticulo();
+		//var_dump($VentPorArt);
+		$pdf = new PDF('P', 'cm', 'a4');
+		$pdf->AddPage();
+		$pdf->SetFont('Times','BU',21);
+		$pdf->Cell(19,1,'Reporte De Articulos',0,0,'C');
+		$pdf->Ln(1);
+		$pdf->Ln(1);
+		$pdf->SetFont('Times','B',16);
+		$pdf->SetDrawColor(0,80,180);
+		$pdf->SetFillColor(430,430,10);
+		$pdf->SetLineWidth(0.08);
+		$pdf->Cell(3, 1, "Id", 1, 0, 'C');
+		$pdf->Cell(7, 1, "Nombre", 1, 0, 'C');
+		$pdf->Cell(5, 1, "Unidades Compradas", 1, 0, 'C');
 		$pdf->Cell(4, 1, "Suma total", 1, 1, 'C');
 		$pdf->Ln();
 		$pdf->SetFont('Times','',12);
@@ -344,6 +433,8 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 	public function confirmacion(){
 		$clientes = $this->ModelosP->obtieneClientes();
 		$proveedores = $this->ModelosP->proveedoresAll();
+		$idVenta = $this->ModelosP->ObtenIdCompra();
+		
 		//esta parte es para tratar el vector de vectores que regresa proveedoresAll, y para eso se hace el for, para guardar lo que tiene proveedores en un vector simple para despues mandarlo a la vista
 		for ($i=0; $i < count($proveedores) ; $i++) { 
 			$pro = $proveedores[$i];
@@ -361,9 +452,50 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$pro['id'] = $vector2;
 		$pro['name'] = $buyerName;
 		$pro['idClient']= $idClient;
+		$pro['no'] = $idVenta['MAX(id_compra)'] +1;
 		if (isset($proveedores)){
 			$this->load->view('confirmacionCliente', $pro);
 		}
 	}
+	public function agregaCompra(){
+		$fecha = $this->input->post('fecha');
+		$cliente = $this->input->post('cliente');
+		$idCompra = $this->input->post('idCompra');
+		$noFactura = $this->input->post('noFactura');
+		$noProductos = $this->input->post('noProductos');
+		$noFactura = strtoupper($noFactura); 
+		$respuesta = $this->ModelosP->agregaCompra($idCompra,$fecha,$noFactura,$cliente);
+		$respuesta2 = $this->ModelosP->ObtenArticulos();
+		for ($i=0; $i < count($respuesta2) ; $i++) { 
+			$pro2 = $respuesta2[$i];
+			$id_articulo[$i] = $pro2['id_articulo'];
+			$des_articulo[$i] = $pro2['des_articulo'];
+		}
+		for ($i=0; $i < intval($noProductos) ; $i++) { //un truquito para que en ves de tener un numero, tuvieramos un vector con el numero de posiciones, por que se genero un error en la vista, aunque aun no sé por que pasó. 
+			$noProductos2[$i] = $i+1;  
+		}
 
+		$envio['idCompra'] = $idCompra;
+		$envio['noProductos'] = $noProductos2;
+		$envio['id_articulo'] = $id_articulo;
+		$envio['des_articulo'] = $des_articulo;
+		$envio['cliente'] = $cliente;
+
+		$this->load->view('VAddBuy', $envio);
+	}
+	public function agregaProCompra(){
+		$idCompra = $this->input->post('idVenta');
+		$idArts = $this->input->post('idArts');
+		$cantArts = $this->input->post('cantArts');
+		$PU = $this->input->post('PU');
+		$total = $this->input->post('Total');
+		for ($i=0; $i <count($idArts); $i++) {
+			$respuesta = $this->ModelosP->agregaCompraArticulos($idCompra, $idArts[$i], $cantArts[$i], $PU[$i]);
+		}
+
+		if ($respuesta) {
+			$this->load->view('VAddCompraDone');
+		}
+
+	}
 }

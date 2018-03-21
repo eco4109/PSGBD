@@ -33,6 +33,7 @@
 		<tr>
 		<td style="padding: 40px">
 		<div class="form-group">
+			
 			<label for="opcion"><font face="Police Monospace">¿Que deseas agregar?</font> </label>
 			<select class="form-control" id="opcion" name="opcion">
 				<option selected> --- </option>

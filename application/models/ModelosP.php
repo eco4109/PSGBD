@@ -62,6 +62,11 @@
 			$resultado = $this->db->query($query);
 			return $resultado->row_array();
 		}
+		public function ObtenIdCompra(){ //Funcion para obtener el ultimo id de las ventas
+			$query = "SELECT MAX(id_compra) FROM compra";
+			$resultado = $this->db->query($query);
+			return $resultado->row_array();
+		}
 
 		public function ChecaClientes(){ //Funcion para checar cuantos clientes hay en la base de datos
 			$query = "SELECT nombre_comprador FROM cliente";
@@ -147,7 +152,38 @@
 			$resultado = $this->db->query($query);
 			return $resultado->result_array();
 		}
+		public function agregaCompra($idCompra,$fecha,$noFactura,$cliente){
+$query = "INSERT INTO compra (id_compra, fecha_compra, ref_fact, id_proveedor) VALUES ('".$idCompra."', '".$fecha."', '".$noFactura."', '".$cliente."')";
+			$resultado = $this->db->query($query);
+			return $resultado; 
+		}
+		public function ObtenArticulos(){
+			$query = "Select id_articulo, des_articulo, existencias from articulo";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+		}
 
+		public function agregaCompraArticulos($idCompra, $idArts, $cantArts, $PU){
+			$query = "INSERT INTO compra_articulo (id_compra, id_articulo, cant_compra, precio_compra) VALUES (".$idCompra.", ".$idArts.", ".$cantArts.", ".$PU.")";
+			$resultado = $this->db->query($query);
+			return $resultado;
+		}
+		public function comprasPorId(){
+			$query = "SELECT compra_articulo.id_compra, compra_articulo.id_articulo, compra.fecha_compra, compra_articulo.precio_compra FROM compra_articulo, compra WHERE compra_articulo.id_compra = compra.id_compra";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+		}
+		public function ComprasPorCliente(){
+			$query = "SELECT compra.id_proveedor, proveedor.nombre_proveedor, SUM(compra_articulo.precio_compra)as total FROM compra, proveedor, compra_articulo WHERE proveedor.id_proveedor=compra.id_proveedor";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+		}
+		public function ComprasPorArticulo(){
+			$query = "SELECT articulo.id_articulo, des_articulo, sum(cant_compra) as totalCom, 	SUM(precio_compra*cant_compra) as totalMon FROM compra, compra_articulo, articulo WHERE 	compra.id_compra = compra_articulo.id_compra AND compra_articulo.id_articulo = articulo.id_articulo GROUP BY 1";
+			$resultado = $this->db->query($query);
+			return $resultado->result_array();
+
+		}
 
 	}
 ?>
