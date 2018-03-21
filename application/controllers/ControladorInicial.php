@@ -2,7 +2,10 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+//WINDOWS: 
 require('C:/xampp/fpdf/fpdf.php');
+//UBUNTU:
+//require('/opt/lampp/htdocs/fpdf/fpdf.php');
 
 class PDF extends FPDF{ //Clase que extiende de FPDF
 
@@ -14,8 +17,13 @@ class PDF extends FPDF{ //Clase que extiende de FPDF
 
 	function Footer(){
 		//Imagen de footer
+		//Para WINDOWS:
 		$this->Image('C:\xampp\fpdf\footerUaemex.png',2,25,15,3);
+
+		//Para UBUNTU:
+		//$this->Image('/opt/lampp/htdocs/fpdf/footerUaemex.jpeg',2,25,15,3);
 	}
+
 }
 
 
@@ -44,7 +52,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$this->load->view('VAddPurchase');
 
 	}
-	
+
 	public function fdecideVAgregar(){ //Funcion para decidir la vista de agregar que debe de desplegar (Cliente, articulo, proveedor)
 		$opcion=$this->input->post('opcion'); //Se obtiene la opcion elegida
 
@@ -78,11 +86,13 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		$id = $this->input->post('ident');
 		$nombre = $this->input->post('nombre');
 		$nombre = strtoupper($nombre);
-
-		$query = $this->ModelosP->InsertaCliente($id, $nombre);
-
-		if ($query == TRUE) {
+		//Verificar si ya existe un cliente con ese NOMBRE
+		$verifyClient = $this->ModelosP->verifyClient($nombre);
+		if($verifyClient == NULL){ //No existe ese cliente, así que se agrega
+			$query = $this->ModelosP->InsertaCliente($id, $nombre);
 			$this->load->view('VAddClientDone');
+		}else{
+			$this->load->view('VClientExists');
 		}
 
 	}
@@ -92,26 +102,28 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 		//Se verifica que ese id no exista ya
 		$query = $this->ModelosP->ChecaIdArt($id);
 		if($query == NULL){ //No se encontro ese articulo, así que se ingresa
-			$descrip = $this->input->post('descripcion');
+			$descrip = strtoupper( $this->input->post('descripcion'));
 			$precioV = $this->input->post('precioV');
 			$query = $this->ModelosP->InsertaArticulo($id, $descrip, $precioV);
 			if($query == TRUE){
 				$this->load->view('VAddArtDone');
 			}
+		}else{
+			$this->load->view('VArtExists');
 		}
 	}
 
 	public function AgregarUnProveedor(){ //Funcion para agregar un proveedor
 		$id = $this->input->post('ident'); //Se obtiene el id del proveedor, el nombre y se hace upper
-		$nombre = $this->input->post('nombre');
-		$nombre = strtoupper($nombre);
-
-		$query = $this->ModelosP->InsertaProveedor($id, $nombre);
-
-		if($query == TRUE){
+		$nombre = strtoupper($this->input->post('nombre'));
+		//Se verifica que ese proveedor no exista ya
+		$query = $this->ModelosP->buscaProveedores($nombre);
+		if($query == NULL){ //No se encontró ese proveedor
+			$query = $this->ModelosP->InsertaProveedor($id, $nombre);
 			$this->load->view('VAddProveedorDone');
+		}else{
+			$this->load->view('VProveedorExists');
 		}
-
 	}
 
 
@@ -243,7 +255,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 			$pdf->Cell(5, 1, $VentPorFactura[$i]["fech_venta"], 1, 0, 'C');
 			$pdf->Cell(4, 1, $VentPorFactura[$i]["Total"], 1, 1, 'C');
 		}
-		$pdf->Output();		
+		$pdf->Output();
 	}
 	public function GRCpFactura(){
 		$VentPorFactura = $this->ModelosP->comprasPorId();
@@ -382,7 +394,7 @@ class ControladorInicial extends CI_controller{ //Controlador principal que carg
 			$pdf->Cell(5, 1, $VentPorArt[$i]["sum(cant_ventas)"], 1, 0, 'C');
 			$pdf->Cell(4, 1, $VentPorArt[$i]["SUM(precio_venta*cant_ventas)"], 1, 1, 'C');
 		}
-		$pdf->Output();		
+		$pdf->Output();
 
 	}
 

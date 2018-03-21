@@ -183,7 +183,17 @@ $query = "INSERT INTO compra (id_compra, fecha_compra, ref_fact, id_proveedor) V
 			$resultado = $this->db->query($query);
 			return $resultado->result_array();
 
+<<<<<<< HEAD
 		}
+=======
+		public function verifyClient($nombre){ //Funcion para verificar si ya existe un cliente , DADO SU NOMBRE
+			$query = "SELECT * FROM cliente WHERE nombre_comprador =  '".$nombre."'";
+			$resultado = $this->db->query($query);
+			return $resultado->row_array();
+
+		}
+
+>>>>>>> d714d1135457325e8d0489016a7776a6a2dd71bb
 
 	}
 ?>

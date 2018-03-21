@@ -8,10 +8,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
 <style type="text/css">
 
-body {
-	font: 13px verdana;
-	font-weight: normal;
-}
 .bt {
   -webkit-border-radius: 12;
   -moz-border-radius: 12;
@@ -27,6 +23,92 @@ body {
 .bt:hover {
   background: #0f5c8c;
   text-decoration: none;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	top: 70px;
+	background-color: #34495e;
+}
+
+.content {
+	position: relative;
+	
+	left: 85%;
+	-webkit-transform: translate(-50%, -50%);
+					transform: translate(-50%, -50%);
+	height: 50px;
+	overflow: hidden;
+	font-family: 'Lato', sans-serif;
+	font-size: 35px;
+	line-height: 35px;
+	color: #626567;
+}
+.content__container {
+	font-weight: 1000;
+	overflow: hidden;
+	height: 40px;
+	padding: 0 80px;
+}
+.content__container:before {
+	content: '[';
+	position: relative;
+	left: 1px;
+}
+.content__container:after {
+	content: ']';
+	position: relative;
+	right: 3px;
+}
+.content__container:after, .content__container:before {
+	position: absolute;
+	top: 0;
+	color: #16a085;
+	font-size: 42px;
+	line-height: 40px;
+	-webkit-animation-name: opacity;
+	-webkit-animation-duration: 2s;
+	-webkit-animation-iteration-count: infinite;
+	animation-name: opacity;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+.content__container__text {
+	display: inline;
+	float: left;
+	margin: 0;
+}
+
+
+@-webkit-keyframes opacity {
+	0%, 100% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+@-webkit-keyframes change {
+	0%, 12.66%, 100% {
+		-webkit-transform: translate3d(0, 0, 0);
+						transform: translate3d(0, 0, 0);
+	}
+}
+@keyframes opacity {
+	0%, 100% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+@keyframes change {
+	0%, 12.66%, 100% {
+		-webkit-transform: translate3d(0, 0, 0);
+						transform: translate3d(0, 0, 0);
+	}
 }
 
 
@@ -127,8 +209,15 @@ $('body').append(divValue);
 </script>
 
 <body  >
+	<div class="content">
+		<div class="content__container">
+			<p class="content__container__text">
+				Articulos
+			</p>
+		</div>
+	</div>
 	<form method= "post" action="fTerminarVenta">
-		<h1 align="center">Información del Articulo.</h1>
+
 		<table align="center">
 			<tr>
 				<td style="padding:5px;">
@@ -149,18 +238,18 @@ $('body').append(divValue);
 
 			<tr>
 				<td align="center">
-					<input type="submit" value="Terminar Venta" class="btn btn-success" style="width: 150px;">
+					<input type="submit" value="Terminar Venta" class="botonVerde" style="width: 150px;">
 				</td>
 
 				<td align="center" style="padding:10px;">
-					<input type="reset" value="Limpiar" class="btn btn-warning" style="width: 100px;">
+					<input type="reset" value="Limpiar" class="botonAzul" style="width: 100px;">
 				</td>
 			</tr>
 
 
 
 
-<div id="main" align="center" style="margin-top: 50px;">
+<div id="main" align="center" style="margin-top: 40px;">
 	<input type="button" id="btAdd" value="Añadir Articulo" class="bt" />
 	<!--<input type="button" id="btRemove" value="Eliminar Articulo" class="bt" />-->
 	<input type="button" id="btRemoveAll" value="Eliminar Todos" class="bt" /><br />
