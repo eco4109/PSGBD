@@ -25,7 +25,11 @@ $(function(){
 });
 </script>
 <style type="text/css">
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> dfffc4bd1c10aa1614fb8b1bf5e7ed15ae860b89
 body {
   width: 100%;
   height: 100%;
@@ -174,7 +178,11 @@ body {
     <p class="content__container__text">
       Reporte
     </p>
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> dfffc4bd1c10aa1614fb8b1bf5e7ed15ae860b89
     <ul class="content__container__list">
       <li class="content__container__list__item">Ventas</li>
       <li class="content__container__list__item">Compras</li>
@@ -183,8 +191,13 @@ body {
     </ul>
   </div>
 </div>
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> dfffc4bd1c10aa1614fb8b1bf5e7ed15ae860b89
 	<form method= "post" action="fGeneraReporte">
 		<table align="center" style="margin-top: 160px;">
 			<tr>
